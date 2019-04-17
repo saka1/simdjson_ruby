@@ -1,5 +1,5 @@
-require "simdjson_ruby/version"
-require "simdjson_ruby/simdjson_ruby"
+require 'simdjson_ruby/version'
+require 'simdjson_ruby/simdjson_ruby'
 
 module SimdjsonRuby
   class Error < StandardError; end

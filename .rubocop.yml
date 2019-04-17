@@ -1,0 +1,9 @@
+require:
+  - rubocop-performance
+LineLength:
+  Max: 120
+Style/Documentation:
+  Enabled: false
+CyclomaticComplexity:
+  Max: 10
+
