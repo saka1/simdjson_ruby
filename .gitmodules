@@ -1,0 +1,3 @@
+[submodule "vendor/simdjson"]
+	path = vendor/simdjson
+	url = git@github.com:lemire/simdjson.git
