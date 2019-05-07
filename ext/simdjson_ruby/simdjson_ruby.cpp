@@ -8,41 +8,7 @@
 
 VALUE rb_mSimdjsonRuby;
 
-// https://github.com/lemire/simdjson/blob/352dd5e7faf3000004c6ad5852c119ce3e679939/tools/json2json.cpp#L10
-void compute_dump(ParsedJson::iterator &pjh) {
-    if (pjh.is_object()) {
-        std::cout << "{";
-        if (pjh.down()) {
-            pjh.print(std::cout); // must be a string
-            std::cout << ":";
-            pjh.next();
-            compute_dump(pjh); // let us recurse
-            while (pjh.next()) {
-                std::cout << ",";
-                pjh.print(std::cout);
-                std::cout << ":";
-                pjh.next();
-                compute_dump(pjh); // let us recurse
-            }
-            pjh.up();
-        }
-        std::cout << "}";
-    } else if (pjh.is_array()) {
-        std::cout << "[";
-        if (pjh.down()) {
-            compute_dump(pjh); // let us recurse
-            while (pjh.next()) {
-                std::cout << ",";
-                compute_dump(pjh); // let us recurse
-            }
-            pjh.up();
-        }
-        std::cout << "]";
-    } else {
-        pjh.print(std::cout); // just print the lone value
-    }
-}
-
+// Convert tape to Ruby's Hash
 static VALUE make_json_hash(ParsedJson::iterator &it)
 {
     if (it.is_object()) {
@@ -89,22 +55,14 @@ static VALUE make_json_hash(ParsedJson::iterator &it)
 static VALUE
 rb_simdjson_parse(VALUE self, VALUE arg)
 {
-    // replace this sample with true impl
     const std::string_view p{RSTRING_PTR(arg)};
-    ParsedJson pj = build_parsed_json(p); // do the parsing
-    if( ! pj.isValid() ) {
-        std::cout << "not valid" << std::endl;
-
+    ParsedJson pj = build_parsed_json(p);
+    if(!pj.isValid()) {
+        //TODO raise Exception?
         return Qnil;
-    } else {
-        //std::cout << "valid" << std::endl;
-        ParsedJson::iterator it{pj};
-        //compute_dump(it);
-        //std::cout << std::endl;
-
-        // construct ruby hash
-        return make_json_hash(it);
     }
+    ParsedJson::iterator it{pj};
+    return make_json_hash(it);
 }
 
 extern "C" {
