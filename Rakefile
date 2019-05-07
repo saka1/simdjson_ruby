@@ -18,4 +18,8 @@ Rake::ExtensionTask.new('simdjson_ruby') do |ext|
   ext.lib_dir = 'lib/simdjson_ruby'
 end
 
+task :bench do
+  ruby('benchmark/run_benchmark.rb')
+end
+
 task default: %i[clobber compile rubocop test]
