@@ -24,7 +24,15 @@ TODO: Write usage instructions here
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/simdjson_ruby.
+- Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/simdjson_ruby.
+
+### Formatter
+
+Please use `clang-format` like this:
+
+```
+$ clang-format -style=file -i ext/simdjson_ruby/simdjson_ruby.*
+```
 
 ## License
 
