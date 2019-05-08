@@ -2,7 +2,6 @@
 #include <string>
 #include <string_view>
 
-#include "simdjson.cpp"  //TODO remove
 #include "simdjson.h"
 #include "simdjson_ruby.hpp"
 
