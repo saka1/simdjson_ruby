@@ -22,4 +22,11 @@ task :bench do
   ruby('benchmark/run_benchmark.rb')
 end
 
-task default: %i[clobber compile rubocop test]
+task :clean_vendor do
+  Dir.chdir('vendor/simdjson') do
+    `git clean -fd`
+    `git checkout .`
+  end
+end
+
+task default: %i[clobber compile test rubocop clean_vendor]
