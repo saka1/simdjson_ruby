@@ -7,7 +7,7 @@ Experimental binding for [simdjson](https://github.com/lemire/simdjson).
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'simdjson_ruby'
+gem 'simdjson'
 ```
 
 And then execute:
@@ -16,7 +16,7 @@ And then execute:
 
 Or install it yourself as:
 
-    $ gem install simdjson_ruby
+    $ gem install simdjson
 
 ## Usage
 
@@ -24,7 +24,7 @@ TODO: Write usage instructions here
 
 ## Contributing
 
-- Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/simdjson_ruby.
+- Bug reports and pull requests are welcome on GitHub at https://github.com/saka1/simdjson_ruby.
 
 ### Formatter
 
