@@ -7,8 +7,10 @@
 
 VALUE rb_mSimdjsonRuby;
 
+using namespace simdjson;
+
 // Convert tape to Ruby's Object
-static VALUE make_ruby_object(ParsedJson::iterator &it) {
+static VALUE make_ruby_object(ParsedJson::Iterator &it) {
     if (it.is_object()) {
         VALUE hash = rb_hash_new();
         if (it.down()) {
@@ -52,13 +54,13 @@ static VALUE make_ruby_object(ParsedJson::iterator &it) {
 }
 
 static VALUE rb_simdjson_parse(VALUE self, VALUE arg) {
-    const std::string_view p{RSTRING_PTR(arg)};
+    const padded_string p{RSTRING_PTR(arg)};
     ParsedJson pj = build_parsed_json(p);
-    if (!pj.isValid()) {
+    if (!pj.is_valid()) {
         // TODO raise Exception?
         return Qnil;
     }
-    ParsedJson::iterator it{pj};
+    ParsedJson::Iterator it{pj};
     return make_ruby_object(it);
 }
 
