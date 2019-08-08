@@ -3,14 +3,14 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'simdjson_ruby/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = 'simdjson_ruby'
+  spec.name          = 'simdjson'
   spec.version       = SimdjsonRuby::VERSION
   spec.authors       = ['saka1']
   spec.email         = ['github@saka1.net']
 
   spec.summary       = 'Ruby binding to simdjson.'
   spec.description   = "simdjson_ruby is a binding to use simdjson, which is a Lemire's fast JSON parser."
-  spec.homepage      = "https://github.com/saka1/#{spec.name}"
+  spec.homepage      = 'https://github.com/saka1/simdjson_ruby'
   spec.license       = 'MIT'
 
   # Prevent pushing this gem to RubyGems.org. To allow pushes either set the 'allowed_push_host'
