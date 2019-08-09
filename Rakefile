@@ -14,8 +14,8 @@ require 'rake/extensiontask'
 
 task build: :compile
 
-Rake::ExtensionTask.new('simdjson_ruby') do |ext|
-  ext.lib_dir = 'lib/simdjson_ruby'
+Rake::ExtensionTask.new('simdjson') do |ext|
+  ext.lib_dir = 'lib/simdjson'
 end
 
 task :bench do

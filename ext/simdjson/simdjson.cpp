@@ -3,7 +3,7 @@
 #include <string_view>
 
 #include "simdjson.h"
-#include "simdjson_ruby.hpp"
+#include "simdjson.hpp"  // internal header
 
 VALUE rb_mSimdjsonRuby;
 
@@ -68,7 +68,7 @@ static VALUE rb_simdjson_parse(VALUE self, VALUE arg) {
 
 extern "C" {
 
-void Init_simdjson_ruby(void) {
+void Init_simdjson(void) {
     rb_mSimdjsonRuby = rb_define_module("SimdjsonRuby");
     rb_eSimdjsonParseError = rb_define_class_under(rb_mSimdjsonRuby, "ParseError", rb_eStandardError);
     rb_define_module_function(rb_mSimdjsonRuby, "parse", reinterpret_cast<VALUE (*)(...)>(rb_simdjson_parse), 1);

@@ -17,6 +17,6 @@ end
 
 $libs = '-lsimdjson'
 
-create_makefile('simdjson_ruby/simdjson_ruby')
+create_makefile('simdjson/simdjson')
 
 # rubocop:enable Style/GlobalVars
