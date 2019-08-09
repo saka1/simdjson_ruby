@@ -1,4 +1,4 @@
-# SimdjsonRuby
+# simdjson gem
 
 Experimental binding for [simdjson](https://github.com/lemire/simdjson).
 
