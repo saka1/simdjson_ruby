@@ -31,7 +31,7 @@ TODO: Write usage instructions here
 Please use `clang-format` like this:
 
 ```
-$ clang-format -style=file -i ext/simdjson_ruby/simdjson_ruby.*
+$ clang-format -style=file -i ext/simdjson/*
 ```
 
 ## License

@@ -2,7 +2,7 @@
 
 require 'benchmark/ips'
 require 'json'
-require 'simdjson_ruby'
+require 'simdjson'
 
 files = %w[
   apache_builds.json
@@ -16,7 +16,7 @@ files = files.to_h
 
 def run_report(rep, name, src)
   rep.report("#{name} - simdjson") do
-    SimdjsonRuby.parse(src)
+    Simdjson.parse(src)
   end
   rep.report("#{name} - standard JSON") do
     JSON.parse(src)
