@@ -1,3 +1,3 @@
-module SimdjsonRuby
+module Simdjson
   VERSION = '0.1.0'.freeze
 end

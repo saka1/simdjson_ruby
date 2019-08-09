@@ -4,7 +4,7 @@ require 'simdjson/version'
 
 Gem::Specification.new do |spec|
   spec.name          = 'simdjson'
-  spec.version       = SimdjsonRuby::VERSION
+  spec.version       = Simdjson::VERSION
   spec.authors       = ['saka1']
   spec.email         = ['github@saka1.net']
 
