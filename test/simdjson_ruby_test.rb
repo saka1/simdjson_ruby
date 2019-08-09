@@ -39,4 +39,10 @@ class SimdjsonRubyTest < Minitest::Test
     assert x['a'].is_a? TrueClass
     assert x['b'].is_a? FalseClass
   end
+
+  def test_parse_error
+    assert_raises SimdjsonRuby::ParseError do
+      SimdjsonRuby.parse('xxxx')
+    end
+  end
 end

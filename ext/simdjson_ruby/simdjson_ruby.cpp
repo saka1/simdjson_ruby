@@ -7,6 +7,8 @@
 
 VALUE rb_mSimdjsonRuby;
 
+VALUE rb_eSimdjsonParseError;
+
 using namespace simdjson;
 
 // Convert tape to Ruby's Object
@@ -57,7 +59,7 @@ static VALUE rb_simdjson_parse(VALUE self, VALUE arg) {
     const padded_string p{RSTRING_PTR(arg)};
     ParsedJson pj = build_parsed_json(p);
     if (!pj.is_valid()) {
-        // TODO raise Exception?
+        rb_raise(rb_eSimdjsonParseError, "parse error");
         return Qnil;
     }
     ParsedJson::Iterator it{pj};
@@ -68,6 +70,7 @@ extern "C" {
 
 void Init_simdjson_ruby(void) {
     rb_mSimdjsonRuby = rb_define_module("SimdjsonRuby");
+    rb_eSimdjsonParseError = rb_define_class_under(rb_mSimdjsonRuby, "ParseError", rb_eStandardError);
     rb_define_module_function(rb_mSimdjsonRuby, "parse", reinterpret_cast<VALUE (*)(...)>(rb_simdjson_parse), 1);
 }
 }
