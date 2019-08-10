@@ -1,6 +1,6 @@
 # simdjson gem
 
-Experimental binding for [simdjson](https://github.com/lemire/simdjson).
+A Ruby bindings for [simdjson](https://github.com/lemire/simdjson).
 
 ## Installation
 
@@ -20,7 +20,14 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+`Simdjson.parse` returns a Hash (if successful).
+
+```ruby
+require 'simdjson'
+
+p Simdjson.parse %|{"a": 12345}| # => {"a"=>12345}
+Simdjson.parse %|abcd| # => raise Simdjson::ParseError
+```
 
 ## Contributing
 
