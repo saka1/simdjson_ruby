@@ -44,11 +44,11 @@ static VALUE make_ruby_object(ParsedJson::Iterator &it) {
         return LONG2NUM(it.get_integer());
     } else if (it.is_double()) {
         return DBL2NUM(it.get_double());
-    } else if (it.get_type() == 'n') {  // TODO replace get_type()
+    } else if (it.is_null()) {
         return Qnil;
-    } else if (it.get_type() == 't') {  // TODO replace get_type()
+    } else if (it.is_true()) {
         return Qtrue;
-    } else if (it.get_type() == 'f') {  // TODO replace get_type()
+    } else if (it.is_false()) {
         return Qfalse;
     }
     // unknown case (bug)
