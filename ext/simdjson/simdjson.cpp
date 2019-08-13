@@ -2,8 +2,7 @@
 #include <string>
 #include <string_view>
 
-#include "simdjson.h"
-#include "simdjson.hpp"  // internal header
+#include "simdjson.hpp"
 
 VALUE rb_mSimdjson;
 
@@ -74,3 +73,4 @@ void Init_simdjson(void) {
     rb_define_module_function(rb_mSimdjson, "parse", reinterpret_cast<VALUE (*)(...)>(rb_simdjson_parse), 1);
 }
 }
+
