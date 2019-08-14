@@ -12,9 +12,8 @@ end
 
 require 'rake/extensiontask'
 
-task build: :compile
-
-Rake::ExtensionTask.new('simdjson') do |ext|
+gemspec = Gem::Specification.load(File.expand_path('simdjson.gemspec', __dir__))
+Rake::ExtensionTask.new('simdjson', gemspec) do |ext|
   ext.lib_dir = 'lib/simdjson'
 end
 
