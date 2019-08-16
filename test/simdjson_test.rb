@@ -45,4 +45,19 @@ class SimdjsonTest < Minitest::Test
       Simdjson.parse('xxxx')
     end
   end
+
+  def test_parse_non_string
+    assert_raises TypeError do
+      Simdjson.parse(123)
+    end
+  end
+
+  def test_non_utf8_string
+    [Encoding::UTF_16LE, Encoding::SJIS, Encoding::EUC_JP].each do |enc|
+      src = 'あああ'.encode(enc)
+      assert_raises Simdjson::ParseError do
+        Simdjson.parse(src)
+      end
+    end
+  end
 end

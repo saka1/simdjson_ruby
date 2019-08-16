@@ -55,6 +55,8 @@ static VALUE make_ruby_object(ParsedJson::Iterator &it) {
 }
 
 static VALUE rb_simdjson_parse(VALUE self, VALUE arg) {
+    Check_Type(arg, T_STRING);
+
     const padded_string p{RSTRING_PTR(arg)};
     ParsedJson pj = build_parsed_json(p);
     if (!pj.is_valid()) {
