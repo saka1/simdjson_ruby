@@ -28,4 +28,4 @@ task :clean_vendor do
   end
 end
 
-task default: %i[clobber compile test rubocop clean_vendor]
+task default: %i[clobber compile test clean_vendor]
