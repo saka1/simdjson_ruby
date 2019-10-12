@@ -2,6 +2,11 @@
 sudo: false
 language: ruby
 cache: bundler
+dist: bionic
 rvm:
-  - 2.6.2
-before_install: gem install bundler -v 2.0.1
+  - 2.6.5
+git:
+  submodules: false
+before_install:
+  - git submodule update --init
+  - gem install bundler -v 2.0.1
