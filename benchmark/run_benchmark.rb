@@ -3,6 +3,7 @@
 require 'benchmark/ips'
 require 'json'
 require 'simdjson'
+require 'oj'
 
 files = %w[
   apache_builds.json
@@ -17,6 +18,9 @@ files = files.to_h
 def run_report(rep, name, src)
   rep.report("#{name} - simdjson") do
     Simdjson.parse(src)
+  end
+  rep.report("#{name} - OJ") do
+    Oj.load(src)
   end
   rep.report("#{name} - standard JSON") do
     JSON.parse(src)
