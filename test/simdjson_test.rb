@@ -56,7 +56,7 @@ class SimdjsonTest < Minitest::Test
     [Encoding::UTF_16LE, Encoding::SJIS, Encoding::EUC_JP].each do |enc|
       src = 'あああ'.encode(enc)
       assert_raises Simdjson::ParseError do
-        Simdjson.parse(src)
+        assert_equal src, Simdjson.parse(src)
       end
     end
   end
