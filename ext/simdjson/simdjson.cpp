@@ -11,44 +11,37 @@ VALUE rb_eSimdjsonParseError;
 using namespace simdjson;
 
 // Convert tape to Ruby's Object
-static VALUE make_ruby_object(ParsedJson::Iterator &it) {
-    if (it.is_object()) {
-        VALUE hash = rb_hash_new();
-        if (it.down()) {
-            do {
-                assert(it.is_string());
-                VALUE key = rb_str_new(it.get_string(), it.get_string_length());
-                it.next();
-                VALUE val = make_ruby_object(it);
-                rb_hash_aset(hash, key, val);
-            } while (it.next());
-            it.up();
-        }
-        return hash;
-    } else if (it.is_array()) {
+static VALUE make_ruby_object(dom::element element) {
+    auto t = element.type();
+    if (t == dom::element_type::ARRAY) {
         VALUE ary = rb_ary_new();
-        if (it.down()) {
-            VALUE e0 = make_ruby_object(it);
-            rb_ary_push(ary, e0);
-            while (it.next()) {
-                VALUE e = make_ruby_object(it);
-                rb_ary_push(ary, e);
-            }
-            it.up();
+        for (dom::element x : element) {
+            VALUE e = make_ruby_object(x);
+            rb_ary_push(ary, e);
         }
         return ary;
-    } else if (it.is_string()) {
-        return rb_str_new(it.get_string(), it.get_string_length());
-    } else if (it.is_integer()) {
-        return LONG2NUM(it.get_integer());
-    } else if (it.is_double()) {
-        return DBL2NUM(it.get_double());
-    } else if (it.is_null()) {
+    } else if (t == dom::element_type::OBJECT) {
+        VALUE hash = rb_hash_new();
+        for (dom::key_value_pair field : dom::object(element)) {
+            std::string_view view(field.key);
+            VALUE k = rb_str_new(view.data(), view.size());
+            VALUE v = make_ruby_object(field.value);
+            rb_hash_aset(hash, k, v);
+        }
+        return hash;
+    } else if (t == dom::element_type::INT64) {
+        return LONG2NUM(element.get<int64_t>());
+    } else if (t == dom::element_type::UINT64) {
+        return ULONG2NUM(element.get<uint64_t>());
+    } else if (t == dom::element_type::DOUBLE) {
+        return DBL2NUM(double(element));
+    } else if (t == dom::element_type::STRING) {
+        std::string_view view(element);
+        return rb_str_new(view.data(), view.size());
+    } else if (t == dom::element_type::BOOL) {
+        return bool(element) ? Qtrue : Qfalse;
+    } else if (t == dom::element_type::NULL_VALUE) {
         return Qnil;
-    } else if (it.is_true()) {
-        return Qtrue;
-    } else if (it.is_false()) {
-        return Qfalse;
     }
     // unknown case (bug)
     rb_raise(rb_eException, "[BUG] must not happen");
@@ -57,14 +50,14 @@ static VALUE make_ruby_object(ParsedJson::Iterator &it) {
 static VALUE rb_simdjson_parse(VALUE self, VALUE arg) {
     Check_Type(arg, T_STRING);
 
-    const padded_string p{RSTRING_PTR(arg)};
-    ParsedJson pj = build_parsed_json(p);
-    if (!pj.is_valid()) {
-        rb_raise(rb_eSimdjsonParseError, "parse error");
-        return Qnil;
+    dom::parser parser;
+    auto [doc, error] = parser.parse(RSTRING_PTR(arg), RSTRING_LEN(arg));
+    if (error == SUCCESS) {
+        return make_ruby_object(doc);
     }
-    ParsedJson::Iterator it{pj};
-    return make_ruby_object(it);
+    // TODO better error handling
+    rb_raise(rb_eSimdjsonParseError, "parse error");
+    return Qnil;
 }
 
 extern "C" {
