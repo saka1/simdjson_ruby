@@ -2,7 +2,7 @@ require 'mkmf'
 
 # rubocop:disable Style/GlobalVars
 
-$CXXFLAGS += ' -std=c++1z -mpclmul -mbmi -mbmi2 -mavx -mavx2 '
+$CXXFLAGS += ' -std=c++1z -mpclmul -mbmi -mbmi2 -mavx -mavx2 -Wno-register '
 
 CWD = __dir__
 SIMDJSON_DIR = File.join(CWD, '..', '..', 'vendor', 'simdjson')
