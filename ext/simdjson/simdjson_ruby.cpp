@@ -2,7 +2,8 @@
 #include <string>
 #include <string_view>
 
-#include "simdjson.hpp"
+#include "ruby.h"
+#include "simdjson.h"
 
 VALUE rb_mSimdjson;
 

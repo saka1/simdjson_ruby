@@ -1,22 +1,7 @@
+
 require 'mkmf'
 
-# rubocop:disable Style/GlobalVars
-
-$CXXFLAGS += ' -std=c++1z -mpclmul -mbmi -mbmi2 -mavx -mavx2 -Wno-register '
-
-CWD = __dir__
-SIMDJSON_DIR = File.join(CWD, '..', '..', 'vendor', 'simdjson')
-dir_config('simdjson', "#{SIMDJSON_DIR}/singleheader", "#{SIMDJSON_DIR}/src")
-
-# build vendor/simdjson
-# TODO check availability of cmake & make (use `find_executable`)
-Dir.chdir(SIMDJSON_DIR) do
-  `cmake -DSIMDJSON_BUILD_STATIC=ON -DCMAKE_BUILD_TYPE=Release .`
-  `make`
-end
-
-$libs = '-lsimdjson'
+$CXXFLAGS += ' -std=c++1z -Wno-register '
 
 create_makefile('simdjson/simdjson')
 
-# rubocop:enable Style/GlobalVars
