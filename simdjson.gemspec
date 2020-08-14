@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 lib = File.expand_path('lib', __dir__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'simdjson/version'
@@ -18,8 +20,7 @@ Gem::Specification.new do |spec|
   spec.files = Dir.chdir(File.expand_path(__dir__)) do
     `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^(test|spec|features)/}) }
   end
-  # TODO: remove unnecessary files
-  spec.files        += Dir.glob('vendor/simdjson/**/*').delete_if { |f| f =~ /json$/ }
+  spec.files += ['ext/simdjson/simdjson.h', 'ext/simdjson/simdjson.cpp']
   spec.bindir        = 'exe'
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ['lib']
