@@ -1,4 +1,5 @@
 # simdjson gem
+![Ruby](https://github.com/saka1/simdjson_ruby/workflows/Ruby/badge.svg)
 [![Gem Version](https://badge.fury.io/rb/simdjson.svg)](https://badge.fury.io/rb/simdjson)
 
 A Ruby bindings for [simdjson](https://github.com/lemire/simdjson).
