@@ -1,9 +1,13 @@
 require:
   - rubocop-performance
-LineLength:
+AllCops:
+  TargetRubyVersion: 2.6
+Layout/LineLength:
   Max: 120
 Style/Documentation:
   Enabled: false
-CyclomaticComplexity:
+Style/GlobalVars:
+  AllowedVariables:
+    - $CXXFLAGS
+Metrics/CyclomaticComplexity:
   Max: 10
-
