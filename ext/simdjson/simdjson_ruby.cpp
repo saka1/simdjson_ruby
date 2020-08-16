@@ -71,4 +71,3 @@ void Init_simdjson(void) {
     rb_define_module_function(rb_mSimdjson, "parse", reinterpret_cast<VALUE (*)(...)>(rb_simdjson_parse), 1);
 }
 }
-
