@@ -52,7 +52,9 @@ static VALUE rb_simdjson_parse(VALUE self, VALUE arg) {
     Check_Type(arg, T_STRING);
 
     dom::parser parser;
-    auto [doc, error] = parser.parse(RSTRING_PTR(arg), RSTRING_LEN(arg));
+    padded_string str(RSTRING_PTR(arg), RSTRING_LEN(arg));
+    dom::element doc;
+    auto error = parser.parse(str).get(doc);
     if (error == SUCCESS) {
         return make_ruby_object(doc);
     }
