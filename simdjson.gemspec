@@ -15,6 +15,8 @@ Gem::Specification.new do |spec|
   spec.homepage      = 'https://github.com/saka1/simdjson_ruby'
   spec.license       = 'MIT'
 
+  spec.required_ruby_version = '>= 2.6'
+
   # Specify which files should be added to the gem when it is released.
   # The `git ls-files -z` loads the files in the RubyGem that have been added into git.
   spec.files = Dir.chdir(File.expand_path(__dir__)) do
@@ -32,6 +34,6 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'oj'
   spec.add_development_dependency 'rake', '>= 12.3.3'
   spec.add_development_dependency 'rake-compiler'
-  spec.add_development_dependency 'rubocop'
-  spec.add_development_dependency 'rubocop-performance'
+  spec.add_development_dependency 'rubocop', '~> 0.89.1'
+  spec.add_development_dependency 'rubocop-performance', '~> 1.7.1'
 end

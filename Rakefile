@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'bundler/gem_tasks'
 require 'rake/testtask'
 require 'rubocop/rake_task'
@@ -18,9 +20,10 @@ task compile: :before_compile
 task :before_compile do
   puts 'Copy singleheader files to ext/simdjson...'
   FileUtils.cp([
-    "#{SIMDJSON_SINGLEHEADER_DIR}/simdjson.h",
-    "#{SIMDJSON_SINGLEHEADER_DIR}//simdjson.cpp"],
-  'ext/simdjson')
+                 "#{SIMDJSON_SINGLEHEADER_DIR}/simdjson.h",
+                 "#{SIMDJSON_SINGLEHEADER_DIR}//simdjson.cpp"
+               ],
+               'ext/simdjson')
 end
 
 Rake::ExtensionTask.new('simdjson') do |ext|
