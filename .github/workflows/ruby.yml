@@ -11,20 +11,19 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        ruby: [ '2.6', '2.7' ]
+        ruby: [ '2.6', '2.7', '3.0' ]
     name: Ruby ${{ matrix.ruby }} sample
     steps:
-      - uses: actions/checkout@v2.3.2
+      - uses: actions/checkout@v2
         with:
           submodules: true
-      - uses: actions/setup-ruby@v1.1.1
+      - uses: ruby/setup-ruby@v1
         with:
           ruby-version: ${{ matrix.ruby }}
-      - name: Update bundler
-        run: gem install bundler -v 2.1.4
-      - name: Install dependencies
-        run: bundle install
-      - name: Build and run tests
+          bundler-cache: true
+      - name: Build
         run: bundle exec rake
+      - name: Run tests
+        run: bundle exec rake test
       - name: Run rubocop
         run: bundle exec rubocop --fail-level=W
