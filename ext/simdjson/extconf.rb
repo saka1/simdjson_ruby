@@ -2,6 +2,6 @@
 
 require 'mkmf'
 
-$CXXFLAGS += ' -std=c++11 -Wno-register '
+$CXXFLAGS += ' -std=c++17 -Wno-register '
 
 create_makefile('simdjson/simdjson')
