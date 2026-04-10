@@ -1,0 +1,36 @@
+name: Push gem
+
+on:
+  push:
+    tags:
+      - "v*"
+
+jobs:
+  test:
+    uses: ./.github/workflows/ruby.yml
+
+  push:
+    needs: test
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+      id-token: write
+
+    environment: release
+
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          submodules: true
+          persist-credentials: false
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+          ruby-version: ruby
+      - name: Copy vendored simdjson files
+        run: |
+          cp vendor/simdjson/singleheader/simdjson.h ext/simdjson/
+          cp vendor/simdjson/singleheader/simdjson.cpp ext/simdjson/
+      - uses: rubygems/release-gem@v1
