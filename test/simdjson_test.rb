@@ -54,6 +54,28 @@ class SimdjsonTest < Minitest::Test
     end
   end
 
+  def test_utf8_encoding
+    x = Simdjson.parse('{"key": "café"}')
+    assert_equal Encoding::UTF_8, x.keys.first.encoding
+    assert_equal Encoding::UTF_8, x['key'].encoding
+    assert x['key'].valid_encoding?
+  end
+
+  def test_utf8_encoding_issue_20
+    # Exact reproduction case from issue #20
+    y = Simdjson.parse('{"m":" \u2013 "}')
+    assert_equal Encoding::UTF_8, y['m'].encoding
+    assert y['m'].valid_encoding?
+  end
+
+  def test_utf8_encoding_in_array
+    ary = Simdjson.parse('["hello", "café"]')
+    ary.each do |str|
+      assert_equal Encoding::UTF_8, str.encoding
+      assert str.valid_encoding?
+    end
+  end
+
   def test_non_utf8_string
     [Encoding::UTF_16LE, Encoding::SJIS, Encoding::EUC_JP].each do |enc|
       src = 'あああ'.encode(enc)
