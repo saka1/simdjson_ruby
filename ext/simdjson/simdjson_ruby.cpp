@@ -27,7 +27,7 @@ static VALUE make_ruby_object(dom::element element) {
         VALUE hash = rb_hash_new();
         for (dom::key_value_pair field : dom::object(element)) {
             std::string_view view(field.key);
-            VALUE k = rb_str_new(view.data(), view.size());
+            VALUE k = rb_utf8_str_new(view.data(), view.size());
             VALUE v = make_ruby_object(field.value);
             rb_hash_aset(hash, k, v);
         }
@@ -40,7 +40,7 @@ static VALUE make_ruby_object(dom::element element) {
         return DBL2NUM(double(element));
     } else if (t == dom::element_type::STRING) {
         std::string_view view(element);
-        return rb_str_new(view.data(), view.size());
+        return rb_utf8_str_new(view.data(), view.size());
     } else if (t == dom::element_type::BOOL) {
         return bool(element) ? Qtrue : Qfalse;
     } else if (t == dom::element_type::NULL_VALUE) {
