@@ -1,5 +1,5 @@
 [submodule "vendor/simdjson"]
 	path = vendor/simdjson
-	url = https://github.com/lemire/simdjson.git
+	url = https://github.com/simdjson/simdjson.git
 	ignore = dirty
 

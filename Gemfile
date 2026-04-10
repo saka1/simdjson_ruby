@@ -2,5 +2,14 @@
 
 source 'https://rubygems.org'
 
-# Specify your gem's dependencies in simdjson.gemspec
 gemspec
+
+group :development do
+  gem 'benchmark-ips'
+  gem 'minitest', '~> 5.0'
+  gem 'oj'
+  gem 'rake', '>= 12.3.3'
+  gem 'rake-compiler'
+  gem 'rubocop', '~> 1.0'
+  gem 'rubocop-performance', '~> 1.0'
+end

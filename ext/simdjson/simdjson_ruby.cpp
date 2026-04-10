@@ -2,8 +2,10 @@
 #include <string>
 #include <string_view>
 
-#include "ruby.h"
+// simdjson.h must precede ruby.h — Ruby's subst.h redefines snprintf,
+// which breaks std::snprintf used inside simdjson.
 #include "simdjson.h"
+#include "ruby.h"
 
 VALUE rb_mSimdjson;
 

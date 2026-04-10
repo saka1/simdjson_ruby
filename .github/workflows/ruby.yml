@@ -11,10 +11,10 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        ruby: [ '2.6', '2.7', '3.0' ]
-    name: Ruby ${{ matrix.ruby }} sample
+        ruby: [ '3.2', '3.3', '3.4', '4.0' ]
+    name: Ruby ${{ matrix.ruby }}
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
         with:
           submodules: true
       - uses: ruby/setup-ruby@v1
